@@ -123,6 +123,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "ast-router-decorator"
+    }
+  },
+  "defaultProject": "ast-router-decorator",
+  "cli": {
+    "analytics": "e9cd554d-56b2-409f-b2bb-5d5b546697f2"
+  }
 }
