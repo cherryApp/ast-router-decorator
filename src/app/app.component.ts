@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Route, RouterDecoratorService } from './service/router-decorator.service';
 
 @Component({
   selector: 'app-root',
@@ -9,7 +8,5 @@ import { Route, RouterDecoratorService } from './service/router-decorator.servic
 export class AppComponent {
   title = 'ast-router-decorator';
 
-  constructor(
-    private rotuerService: RouterDecoratorService,
-  ) {}
+  constructor() {}
 }

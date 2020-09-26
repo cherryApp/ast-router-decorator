@@ -1,29 +1,12 @@
-import { NgModule, Injectable, Type, APP_INITIALIZER } from '@angular/core';
 // tslint:disable: only-arrow-functions
+import { NgModule, Type } from '@angular/core';
 import { Routes, RouterModule, Router, Route as R } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 
 const routes: Routes = [];
-
 const actualRouter: BehaviorSubject<Router> = new BehaviorSubject(null);
 
-@Injectable({
-  providedIn: 'root'
-})
-class RouterDecoratorService {
-
-  constructor(
-    private router: Router
-  ) { }
-
-  init(): any {
-    return () => {
-      actualRouter.next(this.router);
-    };
-  }
-}
-
-const RouterDec = function(route: R): ClassDecorator {
+export const Route = function(route: R): any {
   return (targetClass): any => {
     actualRouter.subscribe(router => {
       if (!router) {
@@ -40,6 +23,12 @@ const RouterDec = function(route: R): ClassDecorator {
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule, (RouterDec as unknown as Type<any>)],
+  exports: [RouterModule]
 })
-export class AppRoutingDecoratorModule { }
+export class AppRoutingDecoratorModule {
+  constructor(
+    private router: Router,
+  ) {
+    actualRouter.next(router);
+  }
+}

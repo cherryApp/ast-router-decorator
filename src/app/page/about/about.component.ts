@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Route } from 'src/app/service/router-decorator.service';
+import { Route } from 'src/app/app-routing-decorator.module';
 
 @Component({
   selector: 'app-about',
