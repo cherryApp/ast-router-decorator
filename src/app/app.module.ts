@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { APP_INITIALIZER, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { HomeComponent } from './page/home/home.component';
@@ -8,13 +8,15 @@ import { AboutComponent } from './page/about/about.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppRoutingDecoratorModule } from './app-routing-decorator.module';
+import { LoginComponent } from './page/login/login.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
     ProductComponent,
-    AboutComponent
+    AboutComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,

@@ -1,23 +1,20 @@
-// tslint:disable: only-arrow-functions
-import { NgModule, Type } from '@angular/core';
+import { Component, NgModule, Type } from '@angular/core';
 import { Routes, RouterModule, Router, Route as R } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 
-const routes: Routes = [];
+interface IRouteWithComponent {
+  route: R;
+  targetClass: any;
+}
+
+
+const routes: R[] = [];
+const routeList: IRouteWithComponent[] = [];
 const actualRouter: BehaviorSubject<Router> = new BehaviorSubject(null);
 
-export const Route = function(route: R): any {
-  return (targetClass): any => {
-    actualRouter.subscribe(router => {
-      if (!router) {
-        return;
-      }
-      router.config.push(({
-        ...route,
-        component: (targetClass as unknown as Type<any>)
-      }));
-      console.log(router.config);
-    });
+export const Route = (route: R): any => {
+  return (targetClass: Component): any => {
+    routeList.push({route, targetClass});
   };
 };
 
@@ -29,6 +26,26 @@ export class AppRoutingDecoratorModule {
   constructor(
     private router: Router,
   ) {
-    actualRouter.next(router);
+    for (const r of routeList) {
+      this.pushRoute(r);
+    }
+  }
+
+  pushRoute(routeSettings: IRouteWithComponent): void {
+    if (!this.router) {
+      return;
+    }
+
+    // Set component.
+    if (!routeSettings.route.loadChildren) {
+      routeSettings.route.component = routeSettings.route.component
+        || (routeSettings.targetClass as unknown as Type<any>);
+    } else {
+      routeSettings.route.component = null;
+    }
+
+    // Push route.
+    this.router.config.push(routeSettings.route);
+    console.log(this.router.config);
   }
 }
