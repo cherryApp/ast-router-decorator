@@ -1,12 +1,11 @@
 import { Component, NgModule, Type } from '@angular/core';
-import { Routes, RouterModule, Router, Route as R } from '@angular/router';
+import { RouterModule, Router, Route as R } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 
 interface IRouteWithComponent {
   route: R;
   targetClass: any;
 }
-
 
 const routes: R[] = [];
 const routeList: IRouteWithComponent[] = [];
